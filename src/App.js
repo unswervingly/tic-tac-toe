@@ -32,11 +32,22 @@ export default class App extends PureComponent {
     // 复制出最后一项历史数据
     const winner = calculateWinner(current.squares)
 
+    // 谁走的棋子
     let status = null
+    // 判断是否全部填满
+    let full = true;
+
+    current.squares.forEach(item => {
+      full = full && item
+    })
+
     // 检查是否有玩家胜出
     if (winner) {
       // 一旦有一方玩家胜出，就把获胜玩家的信息显示出来
       status = 'winner: ' + winner
+    } else if (!winner && full) {
+      // 如果每个格子都有数据，没人获胜，说明平局
+      status = `It's a draw！！！`;
     } else {
       status = 'Next player: ' + (this.state.isX ? 'X' : 'O');
     }

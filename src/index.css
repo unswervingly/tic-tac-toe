@@ -17,6 +17,15 @@ body {
     margin: 0;
     font-weight: bold;
   }
+
   .btn {
+    display: block;
+    height: 30px;
     margin-top: 10px;
+    background: pink;
+    border: 0;
+  }
+  .active {
+    font-weight: bold;
+    color: red;
   }

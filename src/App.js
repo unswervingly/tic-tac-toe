@@ -36,7 +36,6 @@ export default class App extends PureComponent {
     let status = null
     // 判断是否全部填满
     let full = true;
-
     current.squares.forEach(item => {
       full = full && item
     })
@@ -64,8 +63,10 @@ export default class App extends PureComponent {
             history.map((item, index) => {
               // 生成历史步骤按钮
               const desc = index ? `${index % 2 === 0 ? 'X' : 'O'} Go to step-${index}` : `Go to start ${index % 2 === 0 ? 'X' : 'O'}`;
+              console.log(index);
               return (
-                <button key={index} onClick={() => this.jumpTo(index)} className="btn">{desc}</button>
+                // 在历史记录列表中加粗显示当前选择的历史记录
+                <button key={index} onClick={() => this.jumpTo(index)} className={'btn ' + (this.state.stepNumber === index ? 'active' : '')}>{desc}</button>
               )
             })
           }
@@ -102,11 +103,11 @@ export default class App extends PureComponent {
   }
 
   // 跳到历史步骤
-  jumpTo(step) {
+  jumpTo(index) {
     this.setState({
-      stepNumber: step,
-      // 更改step状态，并且当步数是偶数时，isX为true
-      isX: step % 2 === 0
+      stepNumber: index,
+      // 更改index状态，并且当步数是偶数时，isX为true
+      isX: index % 2 === 0
     })
   }
 }

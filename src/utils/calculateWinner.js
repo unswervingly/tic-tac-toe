@@ -17,14 +17,18 @@ export function calculateWinner(squares) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
 
-            return squares[a]
-            // return {
-            //     squares: squares[a],
-            // winnerArr（成棋的棋子的index数组）
-            //     winnerArr: lines[i],
-            //   };
+            // return squares[a]
+            return {
+                player: squares[a],
+                // line（成棋的棋子的index数组）
+                line: lines[i]
+            };
 
         }
     }
-    return null
+    return {
+        player: null,
+        // line（成棋的棋子的index数组）
+        line: []
+    }
 }

@@ -27,7 +27,7 @@ function Square(props) {
 
     return (
         // 在子组件Square修改按钮显示为父组件传来的参数，监听的点击方法也为父组件传来的方法
-        <button className="square" onClick={props.onClick}>
+        <button className="square" onClick={props.onClick} style={{ backgroundColor: props.isHigh ? 'pink' : '' }}>
             {props.value}
         </button>
     );

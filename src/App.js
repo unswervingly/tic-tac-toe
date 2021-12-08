@@ -30,7 +30,8 @@ export default class App extends PureComponent {
     // 获取指定步数的历史数据
     const current = history[this.state.stepNumber];
     // 复制出最后一项历史数据
-    const winner = calculateWinner(current.squares)
+    const res = calculateWinner(current.squares)
+    const winner = res.player;
 
     // 谁走的棋子
     let status = null
@@ -54,7 +55,11 @@ export default class App extends PureComponent {
     return (
       <div className="app">
         <div className="game">
-          <Board squares={current.squares} status={status} onClick={i => this.handleClick(i)} />
+          <Board
+            squares={current.squares}
+            status={status}
+            highLight={res.line} // 传入高亮显示的参数
+            onClick={i => this.handleClick(i)} />
         </div>
         <div className="back_step">
           <p className="back">悔棋</p>
@@ -63,7 +68,6 @@ export default class App extends PureComponent {
             history.map((item, index) => {
               // 生成历史步骤按钮
               const desc = index ? `${index % 2 === 0 ? 'X' : 'O'} Go to step-${index}` : `Go to start ${index % 2 === 0 ? 'X' : 'O'}`;
-              console.log(index);
               return (
                 // 在历史记录列表中加粗显示当前选择的历史记录
                 <button key={index} onClick={() => this.jumpTo(index)} className={'btn ' + (this.state.stepNumber === index ? 'active' : '')}>{desc}</button>
@@ -83,8 +87,12 @@ export default class App extends PureComponent {
     // 复制出最后一项历史数据
     const newSquares = current.squares.slice()
 
+    // 每当有人获胜时，高亮显示连成一线的 3 颗棋子
+    const res = calculateWinner(newSquares)
+    const winner = res.player;
+
     // 当已经有人胜出，或者当前方格已经有数据，不做操作
-    if (calculateWinner(newSquares) || newSquares[i]) {
+    if (winner || newSquares[i]) {
       return
     }
 

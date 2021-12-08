@@ -21,7 +21,18 @@ export default class Board extends PureComponent {
     // }
 
     renderSquare(i) {
-        return <Square key={i} value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
+        // 判断是否高亮
+        const highLight = this.props.highLight;
+        const isHigh = highLight.includes(i);
+
+        return (
+            <Square
+                key={i}
+                value={this.props.squares[i]}
+                isHigh={isHigh} // 传入高亮
+                onClick={() => this.props.onClick(i)}
+            />
+        );
     }
 
 

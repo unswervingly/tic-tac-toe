@@ -2,3 +2,21 @@ body {
     font: 14px "Century Gothic", Futura, sans-serif;
     margin: 20px;
   }
+
+  .app {
+    display: flex;
+  }
+  .back_step {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+  }
+
+  .back {
+    font-size: 30px;
+    margin: 0;
+    font-weight: bold;
+  }
+  .btn {
+    margin-top: 10px;
+  }

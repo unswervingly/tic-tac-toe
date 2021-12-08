@@ -4,6 +4,8 @@ import './index.css'
 
 import Square from '../square/index'
 
+import { calculateWinner } from '../../utils/calculateWinner.js'
+
 export default class Board extends PureComponent {
 
     // 状态提升
@@ -24,7 +26,16 @@ export default class Board extends PureComponent {
 
 
     render() {
-        const status = 'Next player: ' + (this.state.isX ? 'X' : 'O');
+        const winner = calculateWinner(this.state.squares)
+
+        let status = null
+        // 检查是否有玩家胜出
+        if (winner) {
+            // 一旦有一方玩家胜出，就把获胜玩家的信息显示出来
+            status = 'winner: ' + winner
+        } else {
+            status = 'Next player: ' + (this.state.isX ? 'X' : 'O');
+        }
 
         return (
             <div className="board">
@@ -39,6 +50,11 @@ export default class Board extends PureComponent {
     handleClick(i) {
         // 创建了数组的一个副本
         const newSquares = this.state.squares.slice()
+        // 当已经有人胜出，或者当前方格已经有数据，不做操作
+        if (calculateWinner(this.state.squares) || newSquares[i]) {
+            return
+        }
+
         // 根据传过来的 i,改变newSquares数组的值
         newSquares[i] = this.state.isX ? "X" : "O"
         this.setState({

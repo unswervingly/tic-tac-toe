@@ -16,7 +16,7 @@ export default class Board extends PureComponent {
             // 将 Board 组件的初始状态设置为长度为 9 的空值数组
             squares: Array(9).fill(null),
             // 轮流落子功能
-            isX: true
+            isX: true,
         };
     }
 
@@ -24,6 +24,27 @@ export default class Board extends PureComponent {
         return <Square key={i} value={this.state.squares[i]} onClick={() => this.handleClick(i)} />;
     }
 
+
+    handleClick(i) {
+
+        // 创建了数组的一个副本
+        const newSquares = this.state.squares.slice()
+
+        // 当已经有人胜出，或者当前方格已经有数据，不做操作
+        if (calculateWinner(this.state.squares) || newSquares[i]) {
+            return
+        }
+
+        // 根据传过来的 i,改变newSquares数组的值
+        newSquares[i] = this.state.isX ? "X" : "O"
+
+        this.setState({
+            squares: newSquares,
+            isX: !this.state.isX,
+        })
+
+
+    }
 
     render() {
         const winner = calculateWinner(this.state.squares)
@@ -47,19 +68,5 @@ export default class Board extends PureComponent {
         );
     }
 
-    handleClick(i) {
-        // 创建了数组的一个副本
-        const newSquares = this.state.squares.slice()
-        // 当已经有人胜出，或者当前方格已经有数据，不做操作
-        if (calculateWinner(this.state.squares) || newSquares[i]) {
-            return
-        }
 
-        // 根据传过来的 i,改变newSquares数组的值
-        newSquares[i] = this.state.isX ? "X" : "O"
-        this.setState({
-            squares: newSquares,
-            isX: !this.state.isX
-        })
-    }
 }

@@ -7,7 +7,7 @@ import Square from '../square/index'
 export default class Board extends PureComponent {
 
     renderSquare(i) {
-        return <Square />;
+        return <Square value={i} />;
     }
 
 
@@ -17,15 +17,15 @@ export default class Board extends PureComponent {
         return (
             <div className="board">
                 <div className="status">{status}</div>
-                <Square />
-                <Square />
-                <Square />
-                <Square />
-                <Square />
-                <Square />
-                <Square />
-                <Square />
-                <Square />
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
+                {this.renderSquare(1)}
             </div >
         );
     }

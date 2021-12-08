@@ -13,6 +13,8 @@ export default class Board extends PureComponent {
         this.state = {
             // 将 Board 组件的初始状态设置为长度为 9 的空值数组
             squares: Array(9).fill(null),
+            // 轮流落子功能
+            isX: true
         };
     }
 
@@ -22,7 +24,7 @@ export default class Board extends PureComponent {
 
 
     render() {
-        const status = 'Next player: X';
+        const status = 'Next player: ' + (this.state.isX ? 'X' : 'O');
 
         return (
             <div className="board">
@@ -38,9 +40,10 @@ export default class Board extends PureComponent {
         // 创建了数组的一个副本
         const newSquares = this.state.squares.slice()
         // 根据传过来的 i,改变newSquares数组的值
-        newSquares[i] = "X"
+        newSquares[i] = this.state.isX ? "X" : "O"
         this.setState({
             squares: newSquares,
+            isX: !this.state.isX
         })
     }
 }
